@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.empresa.application.dto.UsuarioDTO;
 import com.empresa.application.service.UsuarioService;
+import com.empresa.persistence.UsuarioRepository;
 
 import java.util.List;
 
@@ -13,10 +14,11 @@ import java.util.List;
 public class AulaSingletonEx01Application {
 
 	 public static void main(String[] args) {
-	        ApplicationContext context = SpringApplication.run(AulaSingletonEx01Application.class, args);
+		 ApplicationContext context = SpringApplication.run(AulaSingletonEx01Application.class, args);
 
-	        // Obtendo o serviço de usuários do contexto
-	        UsuarioService usuarioService = context.getBean(UsuarioService.class);
+	        // Obtendo o serviço de usuários do Singleton
+	        UsuarioRepository usuarioRepository = context.getBean(UsuarioRepository.class); // Obtenha o bean do repositório de usuários
+	        UsuarioService usuarioService = UsuarioService.getInstance(usuarioRepository);
 
 	        // Obtendo todos os usuários e imprimindo seus detalhes
 	        List<UsuarioDTO> usuarios = usuarioService.getAllUsuarios();
